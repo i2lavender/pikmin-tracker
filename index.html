@@ -10,7 +10,6 @@ body{font-family:-apple-system,'Segoe UI',sans-serif;font-size:14px;background:#
 
 .header{background:#4a7c59;color:#fff;padding:13px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 6px rgba(0,0,0,.15)}
 .header h1{font-size:16px;font-weight:600;flex:1}
-.header-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .pct-badge{font-size:12px;background:rgba(255,255,255,.2);border-radius:12px;padding:3px 10px}
 .logout-btn{font-size:12px;background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:8px;padding:4px 10px;cursor:pointer}
 .logout-btn:hover{background:rgba(255,255,255,.25)}
@@ -22,12 +21,21 @@ body{font-family:-apple-system,'Segoe UI',sans-serif;font-size:14px;background:#
 .login-card{background:#fff;border-radius:20px;padding:2.2rem 2rem;max-width:380px;width:100%;box-shadow:0 4px 20px rgba(0,0,0,.08);text-align:center}
 .login-card .big-emoji{font-size:52px;margin-bottom:12px;display:block}
 .login-card h2{font-size:22px;font-weight:600;margin-bottom:6px}
-.login-card .desc{font-size:13px;color:#888;margin-bottom:1.6rem;line-height:1.6}
+.login-card .desc{font-size:13px;color:#888;margin-bottom:1.6rem;line-height:1.7}
 .login-card input{width:100%;padding:11px 14px;border:1.5px solid #e0e0e0;border-radius:12px;font-size:15px;outline:none;transition:border .15s;margin-bottom:10px}
 .login-card input:focus{border-color:#4a7c59}
 .login-card .go-btn{width:100%;padding:12px;background:#4a7c59;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer}
 .login-card .go-btn:hover{background:#3c6b4a}
 .login-card .hint{font-size:12px;color:#bbb;margin-top:10px}
+
+/* 圖例說明 */
+.legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;padding:8px 12px;background:#fff;border-radius:10px;border:1px solid #eee}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:12px;color:#666}
+.leg-dot{width:16px;height:16px;border-radius:4px;flex-shrink:0;border:1.5px solid transparent}
+.leg-none{background:#f5f5f5;border-color:#ddd}
+.leg-deco{background:#eaf5e1;border-color:#76c442}
+.leg-dup{background:#fff3cd;border-color:#f0a500}
+.leg-release{background:#fee;border-color:#e88}
 
 #main-screen{display:none;max-width:700px;margin:0 auto;padding:12px 10px 60px}
 
@@ -57,18 +65,45 @@ body{font-family:-apple-system,'Segoe UI',sans-serif;font-size:14px;background:#
 .badge.rare{background:#ede9fd;color:#5b21b6}
 .badge.special{background:#d1fae5;color:#065f46}
 
-.pikmin-grid{display:none;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:5px;padding:6px 10px 10px;background:#f8faf6;border-top:1px solid #f0f0f0}
+/* 皮克敏格子 - 三態 */
+.pikmin-grid{display:none;grid-template-columns:repeat(8,1fr);gap:4px;padding:6px 10px 10px;background:#f8faf6;border-top:1px solid #f0f0f0}
 .pikmin-grid.open{display:grid}
-.pcard{border-radius:10px;border:1.5px solid #e8e8e8;background:#fff;padding:7px 4px 5px;text-align:center;cursor:pointer;transition:all .1s;user-select:none;-webkit-tap-highlight-color:transparent}
-.pcard:active{transform:scale(.95)}
-.pcard.got{background:#eaf5e1;border-color:#76c442}
-.pemoji{font-size:22px;display:block;margin-bottom:2px;line-height:1}
+.pcard{border-radius:8px;border:1.5px solid #e0e0e0;background:#f5f5f5;padding:6px 3px 5px;text-align:center;cursor:pointer;transition:all .1s;user-select:none;-webkit-tap-highlight-color:transparent;position:relative}
+.pcard:active{transform:scale(.93)}
+
+/* 狀態0：無 - 灰 */
+.pcard.s0{background:#f5f5f5;border-color:#ddd}
+.pcard.s0 .pname{color:#bbb}
+.pcard.s0 .pemoji{opacity:.35;filter:grayscale(1)}
+
+/* 狀態1：有飾品 - 綠 */
+.pcard.s1{background:#eaf5e1;border-color:#76c442}
+.pcard.s1 .pname{color:#3a7a1a;font-weight:500}
+
+/* 狀態2：重複 - 橘，可放生 */
+.pcard.s2{background:#fff3cd;border-color:#f0a500}
+.pcard.s2 .pname{color:#7a4e00;font-weight:500}
+.pcard.s2::after{content:'×2+';position:absolute;top:2px;right:2px;font-size:9px;color:#f0a500;font-weight:700;line-height:1}
+
+/* 狀態3：無飾品但有這隻 - 紅框，優先放生 */
+.pcard.s3{background:#fff8f8;border-color:#e88;border-style:dashed}
+.pcard.s3 .pname{color:#a33;font-weight:500}
+.pcard.s3::after{content:'待養';position:absolute;top:2px;right:2px;font-size:9px;color:#c44;font-weight:700;line-height:1}
+
+.pemoji{font-size:20px;display:block;margin-bottom:2px;line-height:1}
 .pname{font-size:10px;color:#aaa;display:block}
-.pcard.got .pname{color:#4a7c59;font-weight:500}
+
+/* 點擊說明 */
+.tap-hint{font-size:10px;color:#bbb;text-align:center;padding:2px 0 4px;grid-column:1/-1}
 
 .rel-box{background:#fff5f4;border:1px solid #f5c6c2;border-radius:12px;padding:12px 14px;margin-top:8px}
-.rel-title{font-size:14px;font-weight:600;color:#c0392b;margin-bottom:6px}
-.rel-body{font-size:13px;color:#666;line-height:1.7}
+.rel-title{font-size:14px;font-weight:600;color:#c0392b;margin-bottom:8px}
+.rel-section{margin-bottom:8px}
+.rel-section-title{font-size:12px;color:#888;margin-bottom:4px;font-weight:500}
+.rel-item{font-size:13px;color:#555;padding:3px 0;border-bottom:0.5px solid #f0e0e0;display:flex;justify-content:space-between}
+.rel-item:last-child{border-bottom:none}
+.rel-item b{color:#222}
+.rel-tag{font-size:11px;padding:1px 6px;border-radius:8px;background:#ffe0e0;color:#a33}
 
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(40,40,40,.88);color:#fff;padding:8px 18px;border-radius:20px;font-size:13px;opacity:0;pointer-events:none;z-index:9999;transition:opacity .25s;white-space:nowrap}
 .toast.show{opacity:1}
@@ -76,7 +111,7 @@ body{font-family:-apple-system,'Segoe UI',sans-serif;font-size:14px;background:#
 
 @media(max-width:480px){
   .login-card{padding:1.8rem 1.4rem}
-  .pikmin-grid{grid-template-columns:repeat(auto-fill,minmax(56px,1fr))}
+  .pikmin-grid{grid-template-columns:repeat(4,1fr)}
 }
 </style>
 </head>
@@ -84,22 +119,26 @@ body{font-family:-apple-system,'Segoe UI',sans-serif;font-size:14px;background:#
 
 <div class="toast" id="toast"></div>
 
-<!-- 登入畫面 -->
+<!-- 登入 -->
 <div id="login-screen">
   <div class="login-card">
     <span class="big-emoji">🌿</span>
     <h2>皮克敏飾品追蹤器</h2>
-    <p class="desc">輸入暱稱，勾選你每隻皮克敏的飾品蒐集進度<br>進度存在你的瀏覽器，隱私又方便 🔒</p>
+    <p class="desc">
+      記錄你每隻皮克敏的飾品狀態<br>
+      幫你決定誰該放生、誰要繼續養 🌱<br>
+      <span style="font-size:12px">資料存在你的瀏覽器，不需要登入</span>
+    </p>
     <input type="text" id="nick-input" placeholder="你的暱稱（例：Pikmin玩家）" maxlength="20" autocomplete="off">
     <button class="go-btn" onclick="doLogin()">開始追蹤 🚀</button>
-    <p class="hint">暱稱區分大小寫 · 同一裝置輸入相同暱稱可繼續進度</p>
+    <p class="hint">同一裝置輸入相同暱稱可繼續上次進度</p>
   </div>
 </div>
 
 <!-- Header -->
 <div class="header" id="main-header" style="display:none">
   <h1>🌱 皮克敏飾品追蹤器</h1>
-  <div class="header-right">
+  <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
     <span class="pct-badge" id="pct-badge">0%</span>
     <button class="logout-btn" onclick="doLogout()">換帳號</button>
   </div>
@@ -109,23 +148,37 @@ body{font-family:-apple-system,'Segoe UI',sans-serif;font-size:14px;background:#
 <!-- 主畫面 -->
 <div id="main-screen">
   <div class="stats-row" id="stats-row"></div>
+
+  <!-- 圖例 -->
+  <div class="legend">
+    <div class="legend-item"><div class="leg-dot leg-none"></div>沒有這隻</div>
+    <div class="legend-item"><div class="leg-dot" style="background:#fff8f8;border:1.5px dashed #e88"></div>有但待養飾品（優先放生）</div>
+    <div class="legend-item"><div class="leg-dot leg-deco"></div>有飾品 ✅</div>
+    <div class="legend-item"><div class="leg-dot leg-dup"></div>重複可放生</div>
+  </div>
+  <p style="font-size:11px;color:#aaa;margin-bottom:10px;padding:0 2px">💡 點格子切換狀態：沒有 → 待養 → 有飾品 → 重複</p>
+
   <div class="filter-row">
     <span class="ftag active" onclick="setFilter('all',this)">全部</span>
     <span class="ftag" onclick="setFilter('complete',this)">全齊 ✅</span>
     <span class="ftag" onclick="setFilter('partial',this)">蒐集中</span>
     <span class="ftag" onclick="setFilter('none',this)">未蒐集</span>
+    <span class="ftag" onclick="setFilter('release',this)">可放生 🗑️</span>
     <span class="ftag" onclick="setFilter('rare',this)">稀有版</span>
     <span class="ftag" onclick="setFilter('special',this)">限定</span>
   </div>
+
   <div id="list-root"></div>
+
   <div class="rel-box" id="rel-box" style="display:none">
-    <div class="rel-title">⚠️ 超過300隻！建議放生</div>
-    <div class="rel-body" id="rel-body"></div>
+    <div class="rel-title">⚠️ 放生建議清單</div>
+    <div id="rel-list"></div>
   </div>
 </div>
 
 <script>
-const PIKMIN=[
+// ── 8種皮克敏（無光） ──
+const PIKMIN = [
   {id:'red',    name:'紅',   emoji:'🔴'},
   {id:'yellow', name:'黃',   emoji:'🟡'},
   {id:'blue',   name:'藍',   emoji:'🔵'},
@@ -134,15 +187,18 @@ const PIKMIN=[
   {id:'rock',   name:'岩石', emoji:'🪨'},
   {id:'winged', name:'飛行', emoji:'🩷'},
   {id:'ice',    name:'冰',   emoji:'🩵'},
-  {id:'glow',   name:'光',   emoji:'🟢'},
 ];
 
-const CATS=[
-  {cat:'餐廳',decos:[
+// 狀態: 0=沒有, 1=有飾品, 2=重複可放生, 3=有但待養飾品(優先放生)
+// s0=灰, s1=綠, s2=橘, s3=紅虛線
+const STATE_CYCLE = [0, 3, 1, 2]; // 點擊順序
+
+const CATS = [
+  {cat:'餐廳',canRare:true,decos:[
     {id:'chef_hat',   name:'廚師帽子'},
     {id:'chef_hat_r', name:'廚師帽子（稀有）',isRare:true},
   ]},
-  {cat:'咖啡廳',decos:[
+  {cat:'咖啡廳',canRare:true,decos:[
     {id:'coffee_cup',  name:'咖啡杯'},
     {id:'coffee_cup_r',name:'咖啡杯（稀有）',isRare:true},
   ]},
@@ -157,64 +213,64 @@ const CATS=[
     {id:'stag_beetle',name:'鍬形蟲'},
     {id:'acorn',      name:'橡栗'},
   ]},
-  {cat:'水邊',decos:[
+  {cat:'水邊',canRare:true,decos:[
     {id:'lure',  name:'擬餌'},
     {id:'lure_r',name:'擬餌（稀有）',isRare:true},
   ]},
-  {cat:'郵局',    decos:[{id:'stamp',     name:'郵票'}]},
-  {cat:'美術館',  decos:[{id:'frame',     name:'畫框'}]},
-  {cat:'機場',    decos:[{id:'plane_toy', name:'飛機玩具'}]},
+  {cat:'郵局',    decos:[{id:'stamp',      name:'郵票'}]},
+  {cat:'美術館',  decos:[{id:'frame',      name:'畫框'}]},
+  {cat:'機場',    decos:[{id:'plane_toy',  name:'飛機玩具'}]},
   {cat:'車站',decos:[
     {id:'train_model',name:'電車紙模型'},
     {id:'ticket',     name:'票券'},
   ]},
-  {cat:'海灘',    decos:[{id:'shell',     name:'貝殼'}]},
-  {cat:'漢堡店',  decos:[{id:'burger',    name:'漢堡'}]},
+  {cat:'海灘',    decos:[{id:'shell',      name:'貝殼'}]},
+  {cat:'漢堡店',  decos:[{id:'burger',     name:'漢堡'}]},
   {cat:'便利店',decos:[
     {id:'bottle_cap',name:'瓶蓋'},
     {id:'snack',     name:'零食'},
   ]},
-  {cat:'超市',decos:[
+  {cat:'超市',canRare:true,decos:[
     {id:'mushroom',name:'蘑菇'},
     {id:'banana',  name:'香蕉'},
     {id:'banana_r',name:'香蕉（稀有）',isRare:true},
   ]},
-  {cat:'麵包店',decos:[
+  {cat:'麵包店',canRare:true,decos:[
     {id:'baguette',  name:'法國麵包'},
     {id:'baguette_r',name:'法國麵包（稀有）',isRare:true},
   ]},
-  {cat:'美容院',decos:[
+  {cat:'美容院',canRare:true,decos:[
     {id:'scissors',  name:'剪刀'},
     {id:'scissors_r',name:'剪刀（稀有）',isRare:true},
   ]},
-  {cat:'服裝店',  decos:[{id:'hair_tie', name:'髮圈'}]},
-  {cat:'公園',decos:[
+  {cat:'服裝店',  decos:[{id:'hair_tie',  name:'髮圈'}]},
+  {cat:'公園',canRare:true,decos:[
     {id:'clover',   name:'幸運草'},
     {id:'four_leaf',name:'四葉幸運草'},
   ]},
-  {cat:'圖書館',  decos:[{id:'mini_book',name:'迷你書'}]},
-  {cat:'路邊',decos:[
+  {cat:'圖書館',  decos:[{id:'mini_book', name:'迷你書'}]},
+  {cat:'路邊',canRare:true,decos:[
     {id:'sticker_a',name:'貼紙A'},
     {id:'sticker_b',name:'貼紙B'},
     {id:'sticker_c',name:'貼紙C'},
     {id:'coin',     name:'金幣'},
     {id:'coin_r',   name:'金幣（稀有）',isRare:true},
   ]},
-  {cat:'壽司餐廳',decos:[{id:'sushi',      name:'壽司'}]},
-  {cat:'山丘',    decos:[{id:'hill_pin',   name:'山丘別針徽章'}]},
-  {cat:'體育館',  decos:[{id:'gym_key',    name:'體育館鑰匙圈'}]},
-  {cat:'雨天',    decos:[{id:'leaf_hat',   name:'葉子帽',        isSpecial:true}]},
-  {cat:'下雪',    decos:[{id:'snow',       name:'雪',            isSpecial:true}]},
+  {cat:'壽司餐廳',decos:[{id:'sushi',       name:'壽司'}]},
+  {cat:'山丘',    decos:[{id:'hill_pin',    name:'山丘別針徽章'}]},
+  {cat:'體育館',  decos:[{id:'gym_key',     name:'體育館鑰匙圈'}]},
+  {cat:'雨天',    decos:[{id:'leaf_hat',    name:'葉子帽',         isSpecial:true}]},
+  {cat:'下雪',    decos:[{id:'snow',        name:'雪',             isSpecial:true}]},
   {cat:'主題樂園',decos:[{id:'theme_ticket',name:'主題樂園門票'}]},
-  {cat:'公車站',  decos:[{id:'bus_model',  name:'公車紙模型'}]},
+  {cat:'公車站',  decos:[{id:'bus_model',   name:'公車紙模型'}]},
   {cat:'義式餐廳',decos:[
     {id:'pizza',name:'披薩'},
     {id:'pasta',name:'義大利麵'},
   ]},
-  {cat:'拉麵店',  decos:[{id:'ramen_key',  name:'拉麵鑰匙圈'}]},
-  {cat:'橋梁',    decos:[{id:'bridge_pin', name:'橋梁別針'}]},
-  {cat:'飯店',    decos:[{id:'hotel_item', name:'飯店備品'}]},
-  {cat:'化妝品商店',decos:[{id:'cosmetics',name:'化妝品'}]},
+  {cat:'拉麵店',  decos:[{id:'ramen_key',   name:'拉麵鑰匙圈'}]},
+  {cat:'橋梁',    decos:[{id:'bridge_pin',  name:'橋梁別針'}]},
+  {cat:'飯店',    decos:[{id:'hotel_item',  name:'飯店備品'}]},
+  {cat:'化妝品商店',decos:[{id:'cosmetics', name:'化妝品'}]},
   {cat:'神社和寺廟',decos:[
     {id:'omikuji_1',name:'運勢（大吉）',isSpecial:true},
     {id:'omikuji_2',name:'運勢（吉）',  isSpecial:true},
@@ -244,17 +300,35 @@ const CATS=[
   ]},
 ];
 
-const TOTAL_CELLS=CATS.reduce((a,c)=>a+c.decos.length,0)*PIKMIN.length;
+const TOTAL_CELLS = CATS.reduce((a,c)=>a+c.decos.length,0) * PIKMIN.length;
+
+// userData[decoId][pikId] = 0|1|2|3
 let userData={}, nickname='', filter='all', openDecos={};
 
-function lsKey(n){ return 'pikmin_tracker__'+n; }
+function lsKey(n){ return 'pikmin_tracker_v2__'+n; }
 
+function getState(dId,pId){ return (userData[dId]&&userData[dId][pId])||0; }
+function setState(dId,pId,s){
+  if(!userData[dId]) userData[dId]={};
+  userData[dId][pId]=s;
+}
+
+// 計算這個飾品的各狀態數
+function countState(dId,s){ return PIKMIN.filter(p=>getState(dId,p.id)===s).length; }
+// 有飾品（含重複）
+function hasDecoCount(dId){ return PIKMIN.filter(p=>getState(dId,p.id)===1||getState(dId,p.id)===2).length; }
+// 是否全8色有飾品
+function isFullDeco(dId){ return hasDecoCount(dId)===PIKMIN.length; }
+// 任何狀態非0
+function hasAny(dId){ return PIKMIN.some(p=>getState(dId,p.id)>0); }
+
+// ── 登入 ──
 function doLogin(){
   const val=document.getElementById('nick-input').value.trim();
-  if(!val){ showToast('請輸入暱稱！'); return; }
+  if(!val){showToast('請輸入暱稱！');return;}
   nickname=val;
-  try{ const raw=localStorage.getItem(lsKey(nickname)); userData=raw?JSON.parse(raw):{}; }
-  catch(e){ userData={}; }
+  try{const raw=localStorage.getItem(lsKey(nickname));userData=raw?JSON.parse(raw):{};}
+  catch(e){userData={};}
   openDecos={};
   document.getElementById('login-screen').style.display='none';
   document.getElementById('main-header').style.display='flex';
@@ -262,9 +336,8 @@ function doLogin(){
   renderAll();
   showToast('歡迎，'+nickname+'！🌱');
 }
-
 function doLogout(){
-  nickname=''; userData={}; openDecos={}; filter='all';
+  nickname='';userData={};openDecos={};filter='all';
   document.getElementById('login-screen').style.display='flex';
   document.getElementById('main-header').style.display='none';
   document.getElementById('main-screen').style.display='none';
@@ -273,19 +346,18 @@ function doLogout(){
   document.querySelector('.ftag').classList.add('active');
   document.getElementById('nick-input').value='';
 }
-
 document.getElementById('nick-input').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 
-function isGot(d,p){ return !!(userData[d]&&userData[d][p]); }
-function gotCount(d){ return PIKMIN.filter(p=>isGot(d,p.id)).length; }
-
-function toggleCell(d,p){
-  if(!userData[d]) userData[d]={};
-  userData[d][p]=!userData[d][p];
-  try{ localStorage.setItem(lsKey(nickname),JSON.stringify(userData)); }catch(e){}
-  if(userData[d][p]&&gotCount(d)===PIKMIN.length){
-    const name=CATS.flatMap(c=>c.decos).find(x=>x.id===d)?.name;
-    showToast((name||'飾品')+' 全齊了！🎉');
+// ── 點擊格子 ──
+function tapCell(dId,pId){
+  const cur=getState(dId,pId);
+  const idx=STATE_CYCLE.indexOf(cur);
+  const next=STATE_CYCLE[(idx+1)%STATE_CYCLE.length];
+  setState(dId,pId,next);
+  try{localStorage.setItem(lsKey(nickname),JSON.stringify(userData));}catch(e){}
+  if(next===1&&isFullDeco(dId)){
+    const name=CATS.flatMap(c=>c.decos).find(x=>x.id===dId)?.name;
+    showToast((name||'飾品')+' 全8色集齊！🎉');
   }
   renderAll();
 }
@@ -301,20 +373,41 @@ function toggleOpen(d){
   renderList();
 }
 
+// ── 統計 ──
+function calcStats(){
+  let withDeco=0, dup=0, waiting=0;
+  CATS.forEach(c=>c.decos.forEach(d=>{
+    PIKMIN.forEach(p=>{
+      const s=getState(d.id,p.id);
+      if(s===1) withDeco++;
+      if(s===2){withDeco++;dup++;}
+      if(s===3) waiting++;
+    });
+  }));
+  const total=withDeco+dup+waiting; // 重複已算在withDeco所以不重複加
+  // 實際持有 = 有飾品 + 重複 + 待養
+  const held = CATS.reduce((a,c)=>a+c.decos.reduce((b,d)=>b+PIKMIN.reduce((e,p)=>{
+    const s=getState(d.id,p.id); return e+(s>0?1:0)+(s===2?1:0);
+  },0),0),0);
+  return {held, withDeco, dup, waiting};
+}
+
 function renderAll(){ renderStats(); renderList(); renderRelease(); }
 
 function renderStats(){
-  let total=0,got=0;
-  CATS.forEach(c=>c.decos.forEach(d=>{const n=gotCount(d.id);got+=n;total+=n;}));
-  const over=Math.max(0,total-300);
-  const pct=Math.round(got/TOTAL_CELLS*100);
+  const {held,withDeco,dup,waiting}=calcStats();
+  const over=Math.max(0,held-300);
+  // 完成度：有飾品格數/總格數
+  const gotCells=CATS.reduce((a,c)=>a+c.decos.reduce((b,d)=>b+PIKMIN.filter(p=>getState(d.id,p.id)===1||getState(d.id,p.id)===2).length,0),0);
+  const pct=Math.round(gotCells/TOTAL_CELLS*100);
   document.getElementById('pct-badge').textContent=pct+'%';
   document.getElementById('progress-fill').style.width=pct+'%';
   document.getElementById('stats-row').innerHTML=`
-    <div class="s-pill">持有 <b>${total}</b>/300</div>
+    <div class="s-pill">持有總數 <b>${held}</b>/300</div>
     <div class="s-pill ${over>0?'warn':'ok'}">需放生 <b>${over}</b></div>
-    <div class="s-pill">已蒐集格數 <b>${got}</b></div>
-    <div class="s-pill">完成度 <b>${pct}%</b></div>`;
+    <div class="s-pill">重複可放生 <b>${dup}</b></div>
+    <div class="s-pill" style="background:#fff8f8;border-color:#e88;color:#a33">待養（優先放生）<b> ${waiting}</b></div>
+    <div class="s-pill">圖鑑完成度 <b>${pct}%</b></div>`;
 }
 
 function renderList(){
@@ -322,30 +415,40 @@ function renderList(){
   let html='';
   CATS.forEach(c=>{
     let decos=c.decos;
-    if(filter==='complete') decos=decos.filter(d=>gotCount(d.id)===PIKMIN.length);
-    if(filter==='partial')  decos=decos.filter(d=>{const n=gotCount(d.id);return n>0&&n<PIKMIN.length;});
-    if(filter==='none')     decos=decos.filter(d=>gotCount(d.id)===0);
+    if(filter==='complete') decos=decos.filter(d=>isFullDeco(d.id));
+    if(filter==='partial')  decos=decos.filter(d=>!isFullDeco(d.id)&&hasAny(d.id));
+    if(filter==='none')     decos=decos.filter(d=>!hasAny(d.id));
+    if(filter==='release')  decos=decos.filter(d=>countState(d.id,2)>0||countState(d.id,3)>0);
     if(filter==='rare')     decos=decos.filter(d=>d.isRare);
     if(filter==='special')  decos=decos.filter(d=>d.isSpecial);
     if(!decos.length) return;
-    const cg=c.decos.reduce((a,d)=>a+gotCount(d.id),0);
-    const ct=c.decos.length*PIKMIN.length;
-    html+=`<div class="section"><div class="sec-head"><span>${c.cat}</span><span>${cg}/${ct}</span></div>`;
+
+    const catHas=c.decos.reduce((a,d)=>a+PIKMIN.filter(p=>getState(d.id,p.id)>0).length,0);
+    const catTotal=c.decos.length*PIKMIN.length;
+    html+=`<div class="section"><div class="sec-head"><span>${c.cat}${c.canRare?'<span style="font-size:10px;color:#9c7ce0;margin-left:4px">✨可稀有</span>':''}</span><span>${catHas}/${catTotal}</span></div>`;
+
     decos.forEach(d=>{
-      const n=gotCount(d.id), isOpen=!!openDecos[d.id], full=n===PIKMIN.length;
+      const n=PIKMIN.filter(p=>getState(d.id,p.id)===1||getState(d.id,p.id)===2).length;
+      const full=isFullDeco(d.id);
+      const isOpen=!!openDecos[d.id];
+      const releaseCount=countState(d.id,2)+countState(d.id,3);
       html+=`<div class="deco-row">
         <div class="deco-head" onclick="toggleOpen('${d.id}')">
           <span class="chevron ${isOpen?'open':''}">▶</span>
           <span class="deco-name">${d.name}${full?' ✅':''}</span>
           ${d.isRare?'<span class="badge rare">稀有</span>':''}
           ${d.isSpecial?'<span class="badge special">限定</span>':''}
+          ${releaseCount>0?`<span style="font-size:11px;color:#c44;margin-left:2px">放生${releaseCount}</span>`:''}
           <span class="deco-prog ${full?'full':''}">${n}/${PIKMIN.length}</span>
         </div>
         <div class="pikmin-grid ${isOpen?'open':''}">
-          ${PIKMIN.map(p=>`<div class="pcard ${isGot(d.id,p.id)?'got':''}" onclick="toggleCell('${d.id}','${p.id}')">
-            <span class="pemoji">${p.emoji}</span>
-            <span class="pname">${p.name}</span>
-          </div>`).join('')}
+          ${PIKMIN.map(p=>{
+            const s=getState(d.id,p.id);
+            return `<div class="pcard s${s}" onclick="tapCell('${d.id}','${p.id}')">
+              <span class="pemoji">${p.emoji}</span>
+              <span class="pname">${p.name}</span>
+            </div>`;
+          }).join('')}
         </div>
       </div>`;
     });
@@ -355,16 +458,52 @@ function renderList(){
 }
 
 function renderRelease(){
-  const total=CATS.reduce((a,c)=>a+c.decos.reduce((b,d)=>b+gotCount(d.id),0),0);
-  const over=Math.max(0,total-300);
+  const {held,dup,waiting}=calcStats();
+  const over=Math.max(0,held-300);
   const box=document.getElementById('rel-box');
-  if(over<=0){box.style.display='none';return;}
+  const hasReleasable=dup>0||waiting>0;
+  if(!hasReleasable&&over<=0){box.style.display='none';return;}
   box.style.display='block';
-  let cands=[];
-  CATS.forEach(c=>c.decos.forEach(d=>{const n=gotCount(d.id);if(n>0)cands.push({name:d.name,n});}));
-  cands.sort((a,b)=>a.n-b.n);
-  const list=cands.slice(0,5).map(c=>`${c.name}（${c.n}隻）`).join('、');
-  document.getElementById('rel-body').innerHTML=`目前超出 <b>${over}</b> 隻，建議優先放生蒐集格數少的：<br>${list}`;
+
+  let html='';
+
+  // 待養（優先）
+  let waitingList=[];
+  CATS.forEach(c=>c.decos.forEach(d=>{
+    PIKMIN.forEach(p=>{
+      if(getState(d.id,p.id)===3) waitingList.push({name:d.name,pik:p.name,emoji:p.emoji});
+    });
+  }));
+  if(waitingList.length){
+    html+=`<div class="rel-section">
+      <div class="rel-section-title">🔴 優先放生（有但還沒長飾品，圖鑑不受影響）</div>
+      ${waitingList.slice(0,10).map(x=>`<div class="rel-item"><b>${x.emoji}${x.name} · ${x.pik}</b><span class="rel-tag">優先</span></div>`).join('')}
+      ${waitingList.length>10?`<div style="font-size:12px;color:#aaa;padding:3px 0">...還有${waitingList.length-10}隻</div>`:''}
+    </div>`;
+  }
+
+  // 重複
+  let dupList=[];
+  CATS.forEach(c=>c.decos.forEach(d=>{
+    PIKMIN.forEach(p=>{
+      if(getState(d.id,p.id)===2) dupList.push({name:d.name,pik:p.name,emoji:p.emoji,cat:c.cat});
+    });
+  }));
+  if(dupList.length){
+    html+=`<div class="rel-section">
+      <div class="rel-section-title">🟡 重複可放生（圖鑑已有，可安心放）</div>
+      ${dupList.slice(0,10).map(x=>`<div class="rel-item"><b>${x.emoji}${x.name} · ${x.pik}</b><span class="rel-tag" style="background:#fff3cd;color:#7a4e00">重複</span></div>`).join('')}
+      ${dupList.length>10?`<div style="font-size:12px;color:#aaa;padding:3px 0">...還有${dupList.length-10}隻</div>`:''}
+    </div>`;
+  }
+
+  if(over>0){
+    html+=`<div style="font-size:13px;color:#c0392b;padding-top:4px;border-top:1px solid #f5c6c2;margin-top:4px">
+      超出 <b>${over}</b> 隻，放生上方清單後就可以空出位置 👆
+    </div>`;
+  }
+
+  document.getElementById('rel-list').innerHTML=html||'<p style="font-size:13px;color:#aaa">目前沒有建議放生的皮克敏</p>';
 }
 
 let toastTimer;
@@ -373,7 +512,7 @@ function showToast(msg){
   el.textContent=msg;
   el.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>el.classList.remove('show'),2200);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),2500);
 }
 </script>
 </body>
