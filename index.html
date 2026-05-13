@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>皮克敏飾品蒐集追蹤器 🌱</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;font-size:14px;background:#f2f5ee;color:#222;min-height:100vh}
+
+.header{background:#4a7c59;color:#fff;padding:13px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.header h1{font-size:16px;font-weight:600;flex:1}
+.header-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.pct-badge{font-size:12px;background:rgba(255,255,255,.2);border-radius:12px;padding:3px 10px}
+.logout-btn{font-size:12px;background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:8px;padding:4px 10px;cursor:pointer}
+.logout-btn:hover{background:rgba(255,255,255,.25)}
+
+.progress-wrap{background:#d6e8d0;height:5px}
+.progress-fill{background:#4a7c59;height:5px;transition:width .4s}
+
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.login-card{background:#fff;border-radius:20px;padding:2.2rem 2rem;max-width:380px;width:100%;box-shadow:0 4px 20px rgba(0,0,0,.08);text-align:center}
+.login-card .big-emoji{font-size:52px;margin-bottom:12px;display:block}
+.login-card h2{font-size:22px;font-weight:600;margin-bottom:6px}
+.login-card .desc{font-size:13px;color:#888;margin-bottom:1.6rem;line-height:1.6}
+.login-card input{width:100%;padding:11px 14px;border:1.5px solid #e0e0e0;border-radius:12px;font-size:15px;outline:none;transition:border .15s;margin-bottom:10px}
+.login-card input:focus{border-color:#4a7c59}
+.login-card .go-btn{width:100%;padding:12px;background:#4a7c59;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer}
+.login-card .go-btn:hover{background:#3c6b4a}
+.login-card .hint{font-size:12px;color:#bbb;margin-top:10px}
+
+#main-screen{display:none;max-width:700px;margin:0 auto;padding:12px 10px 60px}
+
+.stats-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.s-pill{background:#fff;border-radius:20px;padding:5px 13px;font-size:12px;color:#666;border:1px solid #e8e8e8;white-space:nowrap}
+.s-pill b{color:#222;font-weight:600}
+.s-pill.warn{background:#fff0ee;color:#c0392b;border-color:#f5c6c2}
+.s-pill.ok{background:#eaf5e1;color:#2e7d32;border-color:#b8ddb0}
+
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.ftag{font-size:12px;padding:5px 12px;border-radius:20px;border:1px solid #ddd;background:#fff;cursor:pointer;color:#666;transition:all .12s;white-space:nowrap}
+.ftag:hover{border-color:#4a7c59;color:#4a7c59}
+.ftag.active{background:#4a7c59;color:#fff;border-color:#4a7c59;font-weight:500}
+
+.section{margin-bottom:6px}
+.sec-head{font-size:11px;font-weight:600;color:#999;letter-spacing:.5px;padding:8px 2px 4px;display:flex;justify-content:space-between}
+
+.deco-row{background:#fff;border-radius:10px;margin-bottom:3px;overflow:hidden;border:1px solid #eee}
+.deco-head{display:flex;align-items:center;gap:8px;padding:9px 12px;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+.deco-head:hover{background:#f8faf6}
+.chevron{color:#ccc;font-size:11px;transition:transform .15s;flex-shrink:0}
+.chevron.open{transform:rotate(90deg)}
+.deco-name{flex:1;font-size:13px;font-weight:500}
+.deco-prog{font-size:12px;color:#aaa;flex-shrink:0;margin-left:4px}
+.deco-prog.full{color:#4a7c59;font-weight:600}
+.badge{font-size:10px;padding:2px 6px;border-radius:8px;flex-shrink:0}
+.badge.rare{background:#ede9fd;color:#5b21b6}
+.badge.special{background:#d1fae5;color:#065f46}
+
+.pikmin-grid{display:none;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:5px;padding:6px 10px 10px;background:#f8faf6;border-top:1px solid #f0f0f0}
+.pikmin-grid.open{display:grid}
+.pcard{border-radius:10px;border:1.5px solid #e8e8e8;background:#fff;padding:7px 4px 5px;text-align:center;cursor:pointer;transition:all .1s;user-select:none;-webkit-tap-highlight-color:transparent}
+.pcard:active{transform:scale(.95)}
+.pcard.got{background:#eaf5e1;border-color:#76c442}
+.pemoji{font-size:22px;display:block;margin-bottom:2px;line-height:1}
+.pname{font-size:10px;color:#aaa;display:block}
+.pcard.got .pname{color:#4a7c59;font-weight:500}
+
+.rel-box{background:#fff5f4;border:1px solid #f5c6c2;border-radius:12px;padding:12px 14px;margin-top:8px}
+.rel-title{font-size:14px;font-weight:600;color:#c0392b;margin-bottom:6px}
+.rel-body{font-size:13px;color:#666;line-height:1.7}
+
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(40,40,40,.88);color:#fff;padding:8px 18px;border-radius:20px;font-size:13px;opacity:0;pointer-events:none;z-index:9999;transition:opacity .25s;white-space:nowrap}
+.toast.show{opacity:1}
+.empty{text-align:center;padding:2rem 0;color:#bbb;font-size:13px}
+
+@media(max-width:480px){
+  .login-card{padding:1.8rem 1.4rem}
+  .pikmin-grid{grid-template-columns:repeat(auto-fill,minmax(56px,1fr))}
+}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- 登入畫面 -->
+<div id="login-screen">
+  <div class="login-card">
+    <span class="big-emoji">🌿</span>
+    <h2>皮克敏飾品追蹤器</h2>
+    <p class="desc">輸入暱稱，勾選你每隻皮克敏的飾品蒐集進度<br>進度存在你的瀏覽器，隱私又方便 🔒</p>
+    <input type="text" id="nick-input" placeholder="你的暱稱（例：Pikmin玩家）" maxlength="20" autocomplete="off">
+    <button class="go-btn" onclick="doLogin()">開始追蹤 🚀</button>
+    <p class="hint">暱稱區分大小寫 · 同一裝置輸入相同暱稱可繼續進度</p>
+  </div>
+</div>
+
+<!-- Header -->
+<div class="header" id="main-header" style="display:none">
+  <h1>🌱 皮克敏飾品追蹤器</h1>
+  <div class="header-right">
+    <span class="pct-badge" id="pct-badge">0%</span>
+    <button class="logout-btn" onclick="doLogout()">換帳號</button>
+  </div>
+</div>
+<div class="progress-wrap"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+
+<!-- 主畫面 -->
+<div id="main-screen">
+  <div class="stats-row" id="stats-row"></div>
+  <div class="filter-row">
+    <span class="ftag active" onclick="setFilter('all',this)">全部</span>
+    <span class="ftag" onclick="setFilter('complete',this)">全齊 ✅</span>
+    <span class="ftag" onclick="setFilter('partial',this)">蒐集中</span>
+    <span class="ftag" onclick="setFilter('none',this)">未蒐集</span>
+    <span class="ftag" onclick="setFilter('rare',this)">稀有版</span>
+    <span class="ftag" onclick="setFilter('special',this)">限定</span>
+  </div>
+  <div id="list-root"></div>
+  <div class="rel-box" id="rel-box" style="display:none">
+    <div class="rel-title">⚠️ 超過300隻！建議放生</div>
+    <div class="rel-body" id="rel-body"></div>
+  </div>
+</div>
+
+<script>
+const PIKMIN=[
+  {id:'red',    name:'紅',   emoji:'🔴'},
+  {id:'yellow', name:'黃',   emoji:'🟡'},
+  {id:'blue',   name:'藍',   emoji:'🔵'},
+  {id:'purple', name:'紫',   emoji:'🟣'},
+  {id:'white',  name:'白',   emoji:'⚪'},
+  {id:'rock',   name:'岩石', emoji:'🪨'},
+  {id:'winged', name:'飛行', emoji:'🩷'},
+  {id:'ice',    name:'冰',   emoji:'🩵'},
+  {id:'glow',   name:'光',   emoji:'🟢'},
+];
+
+const CATS=[
+  {cat:'餐廳',decos:[
+    {id:'chef_hat',   name:'廚師帽子'},
+    {id:'chef_hat_r', name:'廚師帽子（稀有）',isRare:true},
+  ]},
+  {cat:'咖啡廳',decos:[
+    {id:'coffee_cup',  name:'咖啡杯'},
+    {id:'coffee_cup_r',name:'咖啡杯（稀有）',isRare:true},
+  ]},
+  {cat:'甜點店',decos:[
+    {id:'macaron',name:'馬卡龍'},
+    {id:'donut',  name:'甜甜圈'},
+  ]},
+  {cat:'電影院',  decos:[{id:'popcorn',    name:'爆米花'}]},
+  {cat:'藥局',    decos:[{id:'toothbrush', name:'牙刷'}]},
+  {cat:'動物園',  decos:[{id:'dandelion',  name:'蒲公英'}]},
+  {cat:'森林',decos:[
+    {id:'stag_beetle',name:'鍬形蟲'},
+    {id:'acorn',      name:'橡栗'},
+  ]},
+  {cat:'水邊',decos:[
+    {id:'lure',  name:'擬餌'},
+    {id:'lure_r',name:'擬餌（稀有）',isRare:true},
+  ]},
+  {cat:'郵局',    decos:[{id:'stamp',     name:'郵票'}]},
+  {cat:'美術館',  decos:[{id:'frame',     name:'畫框'}]},
+  {cat:'機場',    decos:[{id:'plane_toy', name:'飛機玩具'}]},
+  {cat:'車站',decos:[
+    {id:'train_model',name:'電車紙模型'},
+    {id:'ticket',     name:'票券'},
+  ]},
+  {cat:'海灘',    decos:[{id:'shell',     name:'貝殼'}]},
+  {cat:'漢堡店',  decos:[{id:'burger',    name:'漢堡'}]},
+  {cat:'便利店',decos:[
+    {id:'bottle_cap',name:'瓶蓋'},
+    {id:'snack',     name:'零食'},
+  ]},
+  {cat:'超市',decos:[
+    {id:'mushroom',name:'蘑菇'},
+    {id:'banana',  name:'香蕉'},
+    {id:'banana_r',name:'香蕉（稀有）',isRare:true},
+  ]},
+  {cat:'麵包店',decos:[
+    {id:'baguette',  name:'法國麵包'},
+    {id:'baguette_r',name:'法國麵包（稀有）',isRare:true},
+  ]},
+  {cat:'美容院',decos:[
+    {id:'scissors',  name:'剪刀'},
+    {id:'scissors_r',name:'剪刀（稀有）',isRare:true},
+  ]},
+  {cat:'服裝店',  decos:[{id:'hair_tie', name:'髮圈'}]},
+  {cat:'公園',decos:[
+    {id:'clover',   name:'幸運草'},
+    {id:'four_leaf',name:'四葉幸運草'},
+  ]},
+  {cat:'圖書館',  decos:[{id:'mini_book',name:'迷你書'}]},
+  {cat:'路邊',decos:[
+    {id:'sticker_a',name:'貼紙A'},
+    {id:'sticker_b',name:'貼紙B'},
+    {id:'sticker_c',name:'貼紙C'},
+    {id:'coin',     name:'金幣'},
+    {id:'coin_r',   name:'金幣（稀有）',isRare:true},
+  ]},
+  {cat:'壽司餐廳',decos:[{id:'sushi',      name:'壽司'}]},
+  {cat:'山丘',    decos:[{id:'hill_pin',   name:'山丘別針徽章'}]},
+  {cat:'體育館',  decos:[{id:'gym_key',    name:'體育館鑰匙圈'}]},
+  {cat:'雨天',    decos:[{id:'leaf_hat',   name:'葉子帽',        isSpecial:true}]},
+  {cat:'下雪',    decos:[{id:'snow',       name:'雪',            isSpecial:true}]},
+  {cat:'主題樂園',decos:[{id:'theme_ticket',name:'主題樂園門票'}]},
+  {cat:'公車站',  decos:[{id:'bus_model',  name:'公車紙模型'}]},
+  {cat:'義式餐廳',decos:[
+    {id:'pizza',name:'披薩'},
+    {id:'pasta',name:'義大利麵'},
+  ]},
+  {cat:'拉麵店',  decos:[{id:'ramen_key',  name:'拉麵鑰匙圈'}]},
+  {cat:'橋梁',    decos:[{id:'bridge_pin', name:'橋梁別針'}]},
+  {cat:'飯店',    decos:[{id:'hotel_item', name:'飯店備品'}]},
+  {cat:'化妝品商店',decos:[{id:'cosmetics',name:'化妝品'}]},
+  {cat:'神社和寺廟',decos:[
+    {id:'omikuji_1',name:'運勢（大吉）',isSpecial:true},
+    {id:'omikuji_2',name:'運勢（吉）',  isSpecial:true},
+    {id:'omikuji_3',name:'運勢（中吉）',isSpecial:true},
+    {id:'omikuji_4',name:'運勢（小吉）',isSpecial:true},
+    {id:'omikuji_5',name:'運勢（末吉）',isSpecial:true},
+  ]},
+  {cat:'電器行',decos:[
+    {id:'battery',    name:'電池'},
+    {id:'fairy_light',name:'仙女燈'},
+  ]},
+  {cat:'咖哩餐廳',    decos:[{id:'curry',     name:'一碗咖哩'}]},
+  {cat:'五金行',      decos:[{id:'tools',     name:'工具'}]},
+  {cat:'大學&學院',   decos:[{id:'school_pin',name:'校徽胸針',  isSpecial:true}]},
+  {cat:'墨西哥餐廳',  decos:[{id:'taco',      name:'塔可餅'}]},
+  {cat:'自助洗衣&乾洗',decos:[{id:'laundry',  name:'洗衣用具'}]},
+  {cat:'韓國餐廳',    decos:[{id:'kimchi',    name:'韓國泡菜'}]},
+  {cat:'特殊活動',decos:[
+    {id:'mario_hat',    name:'瑪利歐帽子',    isSpecial:true},
+    {id:'vday',         name:'反向情人節貼紙',isSpecial:true},
+    {id:'easter_egg',   name:'復活節彩蛋',    isSpecial:true},
+    {id:'bunny_egg',    name:'兔寶寶彩蛋',    isSpecial:true},
+    {id:'afternoon_tea',name:'下午茶',        isSpecial:true},
+    {id:'pacifier',     name:'奶嘴',          isSpecial:true},
+    {id:'choco_2026',   name:'2026巧克力',    isSpecial:true},
+    {id:'color_powder', name:'彩色粉末',      isSpecial:true},
+  ]},
+];
+
+const TOTAL_CELLS=CATS.reduce((a,c)=>a+c.decos.length,0)*PIKMIN.length;
+let userData={}, nickname='', filter='all', openDecos={};
+
+function lsKey(n){ return 'pikmin_tracker__'+n; }
+
+function doLogin(){
+  const val=document.getElementById('nick-input').value.trim();
+  if(!val){ showToast('請輸入暱稱！'); return; }
+  nickname=val;
+  try{ const raw=localStorage.getItem(lsKey(nickname)); userData=raw?JSON.parse(raw):{}; }
+  catch(e){ userData={}; }
+  openDecos={};
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('main-header').style.display='flex';
+  document.getElementById('main-screen').style.display='block';
+  renderAll();
+  showToast('歡迎，'+nickname+'！🌱');
+}
+
+function doLogout(){
+  nickname=''; userData={}; openDecos={}; filter='all';
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('main-header').style.display='none';
+  document.getElementById('main-screen').style.display='none';
+  document.getElementById('progress-fill').style.width='0%';
+  document.querySelectorAll('.ftag').forEach(t=>t.classList.remove('active'));
+  document.querySelector('.ftag').classList.add('active');
+  document.getElementById('nick-input').value='';
+}
+
+document.getElementById('nick-input').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+
+function isGot(d,p){ return !!(userData[d]&&userData[d][p]); }
+function gotCount(d){ return PIKMIN.filter(p=>isGot(d,p.id)).length; }
+
+function toggleCell(d,p){
+  if(!userData[d]) userData[d]={};
+  userData[d][p]=!userData[d][p];
+  try{ localStorage.setItem(lsKey(nickname),JSON.stringify(userData)); }catch(e){}
+  if(userData[d][p]&&gotCount(d)===PIKMIN.length){
+    const name=CATS.flatMap(c=>c.decos).find(x=>x.id===d)?.name;
+    showToast((name||'飾品')+' 全齊了！🎉');
+  }
+  renderAll();
+}
+
+function setFilter(f,el){
+  filter=f;
+  document.querySelectorAll('.ftag').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  renderList();
+}
+function toggleOpen(d){
+  openDecos[d]=!openDecos[d];
+  renderList();
+}
+
+function renderAll(){ renderStats(); renderList(); renderRelease(); }
+
+function renderStats(){
+  let total=0,got=0;
+  CATS.forEach(c=>c.decos.forEach(d=>{const n=gotCount(d.id);got+=n;total+=n;}));
+  const over=Math.max(0,total-300);
+  const pct=Math.round(got/TOTAL_CELLS*100);
+  document.getElementById('pct-badge').textContent=pct+'%';
+  document.getElementById('progress-fill').style.width=pct+'%';
+  document.getElementById('stats-row').innerHTML=`
+    <div class="s-pill">持有 <b>${total}</b>/300</div>
+    <div class="s-pill ${over>0?'warn':'ok'}">需放生 <b>${over}</b></div>
+    <div class="s-pill">已蒐集格數 <b>${got}</b></div>
+    <div class="s-pill">完成度 <b>${pct}%</b></div>`;
+}
+
+function renderList(){
+  const root=document.getElementById('list-root');
+  let html='';
+  CATS.forEach(c=>{
+    let decos=c.decos;
+    if(filter==='complete') decos=decos.filter(d=>gotCount(d.id)===PIKMIN.length);
+    if(filter==='partial')  decos=decos.filter(d=>{const n=gotCount(d.id);return n>0&&n<PIKMIN.length;});
+    if(filter==='none')     decos=decos.filter(d=>gotCount(d.id)===0);
+    if(filter==='rare')     decos=decos.filter(d=>d.isRare);
+    if(filter==='special')  decos=decos.filter(d=>d.isSpecial);
+    if(!decos.length) return;
+    const cg=c.decos.reduce((a,d)=>a+gotCount(d.id),0);
+    const ct=c.decos.length*PIKMIN.length;
+    html+=`<div class="section"><div class="sec-head"><span>${c.cat}</span><span>${cg}/${ct}</span></div>`;
+    decos.forEach(d=>{
+      const n=gotCount(d.id), isOpen=!!openDecos[d.id], full=n===PIKMIN.length;
+      html+=`<div class="deco-row">
+        <div class="deco-head" onclick="toggleOpen('${d.id}')">
+          <span class="chevron ${isOpen?'open':''}">▶</span>
+          <span class="deco-name">${d.name}${full?' ✅':''}</span>
+          ${d.isRare?'<span class="badge rare">稀有</span>':''}
+          ${d.isSpecial?'<span class="badge special">限定</span>':''}
+          <span class="deco-prog ${full?'full':''}">${n}/${PIKMIN.length}</span>
+        </div>
+        <div class="pikmin-grid ${isOpen?'open':''}">
+          ${PIKMIN.map(p=>`<div class="pcard ${isGot(d.id,p.id)?'got':''}" onclick="toggleCell('${d.id}','${p.id}')">
+            <span class="pemoji">${p.emoji}</span>
+            <span class="pname">${p.name}</span>
+          </div>`).join('')}
+        </div>
+      </div>`;
+    });
+    html+='</div>';
+  });
+  root.innerHTML=html||'<p class="empty">沒有符合的項目</p>';
+}
+
+function renderRelease(){
+  const total=CATS.reduce((a,c)=>a+c.decos.reduce((b,d)=>b+gotCount(d.id),0),0);
+  const over=Math.max(0,total-300);
+  const box=document.getElementById('rel-box');
+  if(over<=0){box.style.display='none';return;}
+  box.style.display='block';
+  let cands=[];
+  CATS.forEach(c=>c.decos.forEach(d=>{const n=gotCount(d.id);if(n>0)cands.push({name:d.name,n});}));
+  cands.sort((a,b)=>a.n-b.n);
+  const list=cands.slice(0,5).map(c=>`${c.name}（${c.n}隻）`).join('、');
+  document.getElementById('rel-body').innerHTML=`目前超出 <b>${over}</b> 隻，建議優先放生蒐集格數少的：<br>${list}`;
+}
+
+let toastTimer;
+function showToast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),2200);
+}
+</script>
+</body>
+</html>
