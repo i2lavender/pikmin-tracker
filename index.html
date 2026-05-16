@@ -8,12 +8,10 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;font-size:14px;background:#f2f5ee;color:#222;min-height:100vh}
 
-/* Header */
 .header{background:#4a7c59;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 6px rgba(0,0,0,.18)}
 .header h1{font-size:16px;font-weight:600;flex:1}
 .logout-btn{font-size:12px;background:rgba(255,255,255,.18);border:none;color:#fff;border-radius:8px;padding:4px 10px;cursor:pointer}
 
-/* Login */
 #login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
 .login-card{background:#fff;border-radius:20px;padding:2rem;max-width:380px;width:100%;box-shadow:0 4px 20px rgba(0,0,0,.08);text-align:center}
 .login-card .big-emoji{font-size:52px;margin-bottom:12px;display:block}
@@ -22,131 +20,143 @@ body{font-family:-apple-system,'Segoe UI',sans-serif;font-size:14px;background:#
 .login-card input{width:100%;padding:11px 14px;border:1.5px solid #e0e0e0;border-radius:12px;font-size:15px;outline:none;transition:border .15s;margin-bottom:10px}
 .login-card input:focus{border-color:#4a7c59}
 .login-card .go-btn{width:100%;padding:12px;background:#4a7c59;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer}
-.login-card .go-btn:hover{background:#3c6b4a}
 .login-card .hint{font-size:12px;color:#bbb;margin-top:10px}
 
-/* Main */
-#main-screen{display:none;max-width:680px;margin:0 auto;padding:12px 10px 80px}
+#main-screen{display:none;max-width:700px;margin:0 auto;padding:12px 10px 80px}
 
 /* Stats */
-.stats-bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.stats-bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
 .s-pill{background:#fff;border-radius:20px;padding:5px 13px;font-size:12px;color:#666;border:1px solid #e8e8e8;white-space:nowrap}
 .s-pill b{color:#222;font-weight:600}
 .s-pill.warn{background:#fff0ee;color:#c0392b;border-color:#f5c6c2}
 .s-pill.ok{background:#eaf5e1;color:#2e7d32;border-color:#b8ddb0}
 
-/* Add form */
-.add-box{background:#fff;border-radius:14px;border:1px solid #e8e8e8;padding:14px;margin-bottom:12px}
-.add-box h3{font-size:13px;font-weight:600;color:#555;margin-bottom:10px}
-.add-row{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end}
-.add-row .field{display:flex;flex-direction:column;gap:4px}
-.add-row label{font-size:11px;color:#888}
-.add-row select,.add-row input[type=number]{font-size:13px;padding:7px 10px;border:1.5px solid #e0e0e0;border-radius:8px;outline:none;background:#fff}
-.add-row select:focus,.add-row input:focus{border-color:#4a7c59}
-.add-btn{padding:8px 16px;background:#4a7c59;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;align-self:flex-end}
-.add-btn:hover{background:#3c6b4a}
-.qty-field input{width:60px}
+/* Add panel */
+.add-panel{background:#fff;border-radius:14px;border:1px solid #e8e8e8;padding:14px;margin-bottom:12px}
+.add-panel-title{font-size:13px;font-weight:600;color:#555;margin-bottom:10px}
+
+/* Type selector */
+.type-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.type-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 8px;border-radius:10px;border:1.5px solid #e0e0e0;background:#f9f9f9;cursor:pointer;min-width:56px;transition:all .12s;user-select:none}
+.type-btn:hover{border-color:#4a7c59}
+.type-btn.active{background:#eaf5e1;border-color:#4a7c59}
+.type-btn .t-emoji{font-size:20px;line-height:1}
+.type-btn .t-name{font-size:10px;color:#888}
+.type-btn.active .t-name{color:#3a7a1a;font-weight:500}
+
+/* Deco families */
+.deco-section{display:none}
+.deco-section.show{display:block}
+.family-card{border:1px solid #eee;border-radius:10px;margin-bottom:6px;overflow:hidden;background:#fff}
+.family-head{background:#f8faf6;padding:8px 12px;font-size:13px;font-weight:500;color:#333;border-bottom:1px solid #eee;display:flex;align-items:center;gap:6px}
+.fam-loc{font-size:11px;color:#aaa;font-weight:400}
+.can-rare-tag{font-size:10px;color:#9b87f5;margin-left:2px}
+.family-body{padding:8px 10px;display:flex;flex-direction:column;gap:6px}
+
+/* Counter row */
+.counter-row{display:flex;align-items:center;gap:8px}
+.counter-label{display:flex;align-items:center;gap:4px;font-size:12px;min-width:70px;flex-shrink:0}
+.cl-unlit{color:#a33}
+.cl-normal{color:#2e7d32}
+.cl-rare{color:#5b21b6}
+.counter-btns{display:flex;align-items:center;gap:5px}
+.c-btn{width:24px;height:24px;border-radius:50%;border:1.5px solid #ddd;background:#fff;color:#444;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1;transition:background .1s}
+.c-btn:hover{background:#eee}
+.c-num{font-size:14px;font-weight:600;min-width:18px;text-align:center;color:#222}
+.add-row-btn{margin-left:auto;padding:5px 12px;background:#4a7c59;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+.add-row-btn:hover{background:#3c6b4a}
+.add-row-btn:disabled{background:#ccc;cursor:not-allowed}
+
+/* Hint chips */
+.hint-chip{font-size:11px;padding:3px 8px;border-radius:8px;margin-top:2px;display:inline-block}
+.hint-yellow{background:#fffbea;color:#7a5c00;border:1px solid #ffe082}
+.hint-green{background:#eaf5e1;color:#2e7d32;border:1px solid #b8ddb0}
 
 /* Filter */
 .filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
 .ftag{font-size:12px;padding:5px 12px;border-radius:20px;border:1px solid #ddd;background:#fff;cursor:pointer;color:#666;white-space:nowrap;transition:all .12s}
 .ftag.active{background:#4a7c59;color:#fff;border-color:#4a7c59;font-weight:500}
 
-/* Pikmin list */
-.pik-group{margin-bottom:6px}
-.pik-group-head{font-size:11px;font-weight:600;color:#999;letter-spacing:.5px;padding:6px 2px 3px;display:flex;justify-content:space-between}
-.pik-card{background:#fff;border-radius:10px;border:1px solid #eee;margin-bottom:3px;display:flex;align-items:center;gap:10px;padding:9px 12px}
-.pik-emoji{font-size:22px;flex-shrink:0}
-.pik-info{flex:1;min-width:0}
-.pik-name{font-size:13px;font-weight:500;color:#222}
-.pik-deco{font-size:12px;color:#888;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pik-badge{font-size:11px;padding:2px 8px;border-radius:10px;font-weight:500;flex-shrink:0}
-.badge-keep{background:#eaf5e1;color:#2e7d32}
-.badge-release{background:#fff0ee;color:#c0392b}
-.badge-priority{background:#fee;color:#a33;border:1px dashed #e88}
-.badge-dup{background:#fff3cd;color:#7a4e00}
-.del-btn{background:none;border:none;color:#ccc;font-size:18px;cursor:pointer;padding:2px 4px;flex-shrink:0;line-height:1}
-.del-btn:hover{color:#e24b4a}
+/* List */
+.pik-group{margin-bottom:8px}
+.pik-group-head{font-size:11px;font-weight:600;color:#999;letter-spacing:.4px;padding:6px 2px 3px;display:flex;justify-content:space-between}
 
-/* Release box */
+.fam-summary-card{background:#fff;border-radius:10px;border:1px solid #eee;margin-bottom:4px;padding:10px 12px}
+.fsc-head{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.fsc-name{font-size:13px;font-weight:500;flex:1}
+.fsc-total{font-size:12px;color:#888}
+.fsc-rows{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:4px}
+.state-chip{font-size:11px;padding:3px 9px;border-radius:10px;display:flex;align-items:center;gap:3px}
+.sc-unlit{background:#fff8f8;border:1px dashed #e88;color:#a33}
+.sc-normal{background:#eaf5e1;border:1px solid #76c442;color:#2e7d32}
+.sc-rare{background:#ede9fd;border:1px solid #9b87f5;color:#5b21b6}
+.fsc-advice{font-size:11px;color:#888;display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.adv-tag{font-size:11px;padding:2px 7px;border-radius:8px}
+.adv-keep{background:#eaf5e1;color:#2e7d32}
+.adv-keep-rare{background:#ede9fd;color:#5b21b6}
+.adv-release{background:#fff3cd;color:#7a4e00}
+.adv-priority{background:#fee;color:#a33}
+.adv-grow{background:#e8f4ff;color:#1565c0}
+.fsc-del{background:none;border:none;color:#ddd;font-size:12px;cursor:pointer;padding:2px;margin-left:auto;align-self:flex-start}
+.fsc-del:hover{color:#e24b4a}
+
+/* Release */
 .rel-box{background:#fff5f4;border:1px solid #f5c6c2;border-radius:12px;padding:12px 14px;margin-top:8px}
 .rel-title{font-size:14px;font-weight:600;color:#c0392b;margin-bottom:6px}
-.rel-item{font-size:13px;color:#555;padding:3px 0;border-bottom:.5px solid #f0e0e0;display:flex;justify-content:space-between;align-items:center}
+.rel-sec-title{font-size:12px;color:#888;margin:6px 0 3px;font-weight:500}
+.rel-item{font-size:13px;color:#555;padding:4px 0;border-bottom:.5px solid #f0e0e0;display:flex;justify-content:space-between;align-items:center}
 .rel-item:last-child{border-bottom:none}
-.rel-tag{font-size:11px;padding:1px 7px;border-radius:8px}
+.rel-tag{font-size:11px;padding:2px 7px;border-radius:8px}
 
-/* Toast */
+/* Upgrade hints */
+.upgrade-hints{margin-top:8px}
+.upg-hint{font-size:12px;padding:6px 10px;border-radius:8px;margin-bottom:4px;line-height:1.5}
+.upg-yellow{background:#fffbea;border:1px solid #ffe082;color:#7a5c00}
+.upg-green{background:#eaf5e1;border:1px solid #b8ddb0;color:#2e7d32}
+
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(40,40,40,.9);color:#fff;padding:8px 18px;border-radius:20px;font-size:13px;opacity:0;pointer-events:none;z-index:9999;transition:opacity .25s;white-space:nowrap}
 .toast.show{opacity:1}
 .empty-state{text-align:center;padding:2.5rem 0;color:#bbb;font-size:13px}
-
-@media(max-width:500px){
-  .add-row{gap:6px}
-}
 </style>
 </head>
 <body>
 <div class="toast" id="toast"></div>
 
-<!-- Login -->
 <div id="login-screen">
   <div class="login-card">
     <span class="big-emoji">🌿</span>
     <h2>皮克敏管理器</h2>
-    <p class="desc">一隻一隻記錄你的皮克敏<br>工具幫你判斷誰可以放生 🌱<br><span style="font-size:12px">資料存在你的瀏覽器，不需要帳號</span></p>
+    <p class="desc">記錄每隻皮克敏的狀態<br>幫你決定誰可以放生、誰要繼續養 🌱<br><span style="font-size:12px">進度存在你的瀏覽器</span></p>
     <input type="text" id="nick-input" placeholder="你的暱稱" maxlength="20" autocomplete="off">
     <button class="go-btn" onclick="doLogin()">開始 🚀</button>
     <p class="hint">同裝置同暱稱可繼續上次進度</p>
   </div>
 </div>
 
-<!-- Header -->
 <div class="header" id="main-header" style="display:none">
   <h1>🌱 皮克敏管理器</h1>
   <button class="logout-btn" onclick="doLogout()">換帳號</button>
 </div>
 
-<!-- Main -->
 <div id="main-screen">
-
-  <!-- 統計 -->
   <div class="stats-bar" id="stats-bar"></div>
 
-  <!-- 新增 -->
-  <div class="add-box">
-    <h3>➕ 新增皮克敏</h3>
-    <div class="add-row">
-      <div class="field">
-        <label>種類</label>
-        <select id="in-type">
-          <option value="red">🔴 紅</option>
-          <option value="yellow">🟡 黃</option>
-          <option value="blue">🔵 藍</option>
-          <option value="purple">🟣 紫</option>
-          <option value="white">⚪ 白</option>
-          <option value="rock">🪨 岩石</option>
-          <option value="winged">🩷 飛行</option>
-          <option value="ice">🩵 冰</option>
-        </select>
-      </div>
-      <div class="field" style="flex:1;min-width:140px">
-        <label>飾品</label>
-        <select id="in-deco"></select>
-      </div>
-      <div class="field qty-field">
-        <label>數量</label>
-        <input type="number" id="in-qty" value="1" min="1" max="50">
-      </div>
-      <button class="add-btn" onclick="addPikmin()">新增</button>
-    </div>
+  <!-- 新增面板 -->
+  <div class="add-panel">
+    <div class="add-panel-title">➕ 新增皮克敏</div>
+    <div class="type-btns" id="type-btns"></div>
+    <div class="deco-section" id="deco-section"></div>
   </div>
 
+  <!-- 升稀有提醒 -->
+  <div class="upgrade-hints" id="upgrade-hints"></div>
+
   <!-- 篩選 -->
-  <div class="filter-row">
+  <div class="filter-row" style="margin-top:8px">
     <span class="ftag active" onclick="setFilter('all',this)">全部</span>
-    <span class="ftag" onclick="setFilter('keep',this)">留著 ✅</span>
     <span class="ftag" onclick="setFilter('release',this)">可放生 🗑️</span>
-    <span class="ftag" onclick="setFilter('priority',this)">優先放生 🔴</span>
+    <span class="ftag" onclick="setFilter('grow',this)">培育中 🌿</span>
+    <span class="ftag" onclick="setFilter('keep',this)">留著 ✅</span>
   </div>
 
   <div id="pik-list"></div>
@@ -169,346 +179,398 @@ const PIKMIN_TYPES = [
   {id:'ice',    name:'冰',   emoji:'🩵'},
 ];
 
-// 飾品清單：id, name, isRare
-const DECOS = [
-  {id:'none',         name:'無飾品（還沒長）'},
-  // 餐廳
-  {id:'chef_hat',     name:'廚師帽子'},
-  {id:'chef_hat_r',   name:'廚師帽子（稀有）',  isRare:true},
-  // 咖啡廳
-  {id:'coffee_cup',   name:'咖啡杯'},
-  {id:'coffee_cup_r', name:'咖啡杯（稀有）',    isRare:true},
-  // 甜點店
-  {id:'macaron',      name:'馬卡龍'},
-  {id:'donut',        name:'甜甜圈'},
-  // 電影院
-  {id:'popcorn',      name:'爆米花'},
-  // 藥局
-  {id:'toothbrush',   name:'牙刷'},
-  // 動物園
-  {id:'dandelion',    name:'蒲公英'},
-  // 森林
-  {id:'stag_beetle',  name:'鍬形蟲'},
-  {id:'acorn',        name:'橡栗'},
-  // 水邊
-  {id:'lure',         name:'擬餌'},
-  {id:'lure_r',       name:'擬餌（稀有）',      isRare:true},
-  // 郵局
-  {id:'stamp',        name:'郵票'},
-  // 美術館
-  {id:'frame',        name:'畫框'},
-  // 機場
-  {id:'plane_toy',    name:'飛機玩具'},
-  // 車站
-  {id:'train_model',  name:'電車紙模型'},
-  {id:'ticket',       name:'票券'},
-  // 海灘
-  {id:'shell',        name:'貝殼'},
-  // 漢堡店
-  {id:'burger',       name:'漢堡'},
-  // 便利店
-  {id:'bottle_cap',   name:'瓶蓋'},
-  {id:'snack',        name:'零食'},
-  // 超市
-  {id:'mushroom',     name:'蘑菇'},
-  {id:'banana',       name:'香蕉'},
-  {id:'banana_r',     name:'香蕉（稀有）',      isRare:true},
-  // 麵包店
-  {id:'baguette',     name:'法國麵包'},
-  {id:'baguette_r',   name:'法國麵包（稀有）',  isRare:true},
-  // 美容院
-  {id:'scissors',     name:'剪刀'},
-  {id:'scissors_r',   name:'剪刀（稀有）',      isRare:true},
-  // 服裝店
-  {id:'hair_tie',     name:'髮圈'},
-  // 公園
-  {id:'clover',       name:'幸運草'},
-  {id:'four_leaf',    name:'四葉幸運草'},
-  // 圖書館
-  {id:'mini_book',    name:'迷你書'},
-  // 路邊
-  {id:'sticker_a',    name:'貼紙A'},
-  {id:'sticker_b',    name:'貼紙B'},
-  {id:'sticker_c',    name:'貼紙C'},
-  {id:'coin',         name:'金幣'},
-  {id:'coin_r',       name:'金幣（稀有）',      isRare:true},
-  // 壽司
-  {id:'sushi',        name:'壽司'},
-  // 山丘
-  {id:'hill_pin',     name:'山丘別針徽章'},
-  // 體育館
-  {id:'gym_key',      name:'體育館鑰匙圈'},
-  // 雨天
-  {id:'leaf_hat',     name:'葉子帽'},
-  // 下雪
-  {id:'snow',         name:'雪'},
-  // 主題樂園
-  {id:'theme_ticket', name:'主題樂園門票'},
-  // 公車站
-  {id:'bus_model',    name:'公車紙模型'},
-  // 義式餐廳
-  {id:'pizza',        name:'披薩'},
-  {id:'pasta',        name:'義大利麵'},
-  // 拉麵店
-  {id:'ramen_key',    name:'拉麵鑰匙圈'},
-  // 橋梁
-  {id:'bridge_pin',   name:'橋梁別針'},
-  // 飯店
-  {id:'hotel_item',   name:'飯店備品'},
-  // 化妝品
-  {id:'cosmetics',    name:'化妝品'},
-  // 神社
-  {id:'omikuji_1',    name:'運勢（大吉）'},
-  {id:'omikuji_2',    name:'運勢（吉）'},
-  {id:'omikuji_3',    name:'運勢（中吉）'},
-  {id:'omikuji_4',    name:'運勢（小吉）'},
-  {id:'omikuji_5',    name:'運勢（末吉）'},
-  // 電器行
-  {id:'battery',      name:'電池'},
-  {id:'fairy_light',  name:'仙女燈'},
-  // 咖哩
-  {id:'curry',        name:'一碗咖哩'},
-  // 五金行
-  {id:'tools',        name:'工具'},
-  // 大學
-  {id:'school_pin',   name:'校徽胸針'},
-  // 墨西哥
-  {id:'taco',         name:'塔可餅'},
-  // 洗衣
-  {id:'laundry',      name:'洗衣用具'},
-  // 韓國
-  {id:'kimchi',       name:'韓國泡菜'},
-  // 特殊活動
-  {id:'mario_hat',    name:'瑪利歐帽子'},
-  {id:'vday',         name:'反向情人節貼紙'},
-  {id:'easter_egg',   name:'復活節彩蛋'},
-  {id:'bunny_egg',    name:'兔寶寶彩蛋'},
-  {id:'afternoon_tea',name:'下午茶'},
-  {id:'pacifier',     name:'奶嘴'},
-  {id:'choco_2026',   name:'2026巧克力'},
-  {id:'color_powder', name:'彩色粉末'},
+const DECO_FAMILIES = [
+  {base:'chef_hat',    name:'廚師帽子',       loc:'餐廳',         hasRare:true},
+  {base:'coffee_cup',  name:'咖啡杯',         loc:'咖啡廳',       hasRare:true},
+  {base:'macaron',     name:'馬卡龍',         loc:'甜點店'},
+  {base:'donut',       name:'甜甜圈',         loc:'甜點店'},
+  {base:'popcorn',     name:'爆米花',         loc:'電影院'},
+  {base:'toothbrush',  name:'牙刷',           loc:'藥局'},
+  {base:'dandelion',   name:'蒲公英',         loc:'動物園'},
+  {base:'stag_beetle', name:'鍬形蟲',         loc:'森林'},
+  {base:'acorn',       name:'橡栗',           loc:'森林'},
+  {base:'lure',        name:'擬餌',           loc:'水邊',         hasRare:true},
+  {base:'stamp',       name:'郵票',           loc:'郵局'},
+  {base:'frame',       name:'畫框',           loc:'美術館'},
+  {base:'plane_toy',   name:'飛機玩具',       loc:'機場'},
+  {base:'train_model', name:'電車紙模型',     loc:'車站'},
+  {base:'ticket',      name:'票券',           loc:'車站'},
+  {base:'shell',       name:'貝殼',           loc:'海灘'},
+  {base:'burger',      name:'漢堡',           loc:'漢堡店'},
+  {base:'bottle_cap',  name:'瓶蓋',           loc:'便利店'},
+  {base:'snack',       name:'零食',           loc:'便利店'},
+  {base:'mushroom',    name:'蘑菇',           loc:'超市'},
+  {base:'banana',      name:'香蕉',           loc:'超市',         hasRare:true},
+  {base:'baguette',    name:'法國麵包',       loc:'麵包店',       hasRare:true},
+  {base:'scissors',    name:'剪刀',           loc:'美容院',       hasRare:true},
+  {base:'hair_tie',    name:'髮圈',           loc:'服裝店'},
+  {base:'clover',      name:'幸運草',         loc:'公園'},
+  {base:'four_leaf',   name:'四葉幸運草',     loc:'公園'},
+  {base:'mini_book',   name:'迷你書',         loc:'圖書館'},
+  {base:'sticker_a',   name:'貼紙A',          loc:'路邊'},
+  {base:'sticker_b',   name:'貼紙B',          loc:'路邊'},
+  {base:'sticker_c',   name:'貼紙C',          loc:'路邊'},
+  {base:'coin',        name:'金幣',           loc:'路邊',         hasRare:true},
+  {base:'sushi',       name:'壽司',           loc:'壽司餐廳'},
+  {base:'hill_pin',    name:'山丘別針徽章',   loc:'山丘'},
+  {base:'gym_key',     name:'體育館鑰匙圈',   loc:'體育館'},
+  {base:'leaf_hat',    name:'葉子帽',         loc:'雨天'},
+  {base:'snow',        name:'雪',             loc:'下雪'},
+  {base:'theme_ticket',name:'主題樂園門票',   loc:'主題樂園'},
+  {base:'bus_model',   name:'公車紙模型',     loc:'公車站'},
+  {base:'pizza',       name:'披薩',           loc:'義式餐廳'},
+  {base:'pasta',       name:'義大利麵',       loc:'義式餐廳'},
+  {base:'ramen_key',   name:'拉麵鑰匙圈',     loc:'拉麵店'},
+  {base:'bridge_pin',  name:'橋梁別針',       loc:'橋梁'},
+  {base:'hotel_item',  name:'飯店備品',       loc:'飯店'},
+  {base:'cosmetics',   name:'化妝品',         loc:'化妝品商店'},
+  {base:'omikuji_1',   name:'運勢（大吉）',   loc:'神社和寺廟'},
+  {base:'omikuji_2',   name:'運勢（吉）',     loc:'神社和寺廟'},
+  {base:'omikuji_3',   name:'運勢（中吉）',   loc:'神社和寺廟'},
+  {base:'omikuji_4',   name:'運勢（小吉）',   loc:'神社和寺廟'},
+  {base:'omikuji_5',   name:'運勢（末吉）',   loc:'神社和寺廟'},
+  {base:'battery',     name:'電池',           loc:'電器行'},
+  {base:'fairy_light', name:'仙女燈',         loc:'電器行'},
+  {base:'curry',       name:'一碗咖哩',       loc:'咖哩餐廳'},
+  {base:'tools',       name:'工具',           loc:'五金行'},
+  {base:'school_pin',  name:'校徽胸針',       loc:'大學&學院'},
+  {base:'taco',        name:'塔可餅',         loc:'墨西哥餐廳'},
+  {base:'laundry',     name:'洗衣用具',       loc:'自助洗衣&乾洗'},
+  {base:'kimchi',      name:'韓國泡菜',       loc:'韓國餐廳'},
+  {base:'mario_hat',   name:'瑪利歐帽子',     loc:'特殊活動'},
+  {base:'vday',        name:'反向情人節貼紙', loc:'特殊活動'},
+  {base:'easter_egg',  name:'復活節彩蛋',     loc:'特殊活動'},
+  {base:'bunny_egg',   name:'兔寶寶彩蛋',     loc:'特殊活動'},
+  {base:'afternoon_tea',name:'下午茶',        loc:'特殊活動'},
+  {base:'pacifier',    name:'奶嘴',           loc:'特殊活動'},
+  {base:'choco_2026',  name:'2026巧克力',     loc:'特殊活動'},
+  {base:'color_powder',name:'彩色粉末',       loc:'特殊活動'},
 ];
 
-const DECO_MAP = {};
-DECOS.forEach(d=>DECO_MAP[d.id]=d);
+const FAM_MAP = {};
+DECO_FAMILIES.forEach(f => FAM_MAP[f.base] = f);
 
-// userData = [ {id, type, decoId, qty}, ... ]
-// 圖鑑 = Set of "type_decoId" that user has at least 1 with deco (state=1 or 2)
-let entries = [];
-let nextId  = 1;
+// ── 資料結構 ──
+// record: { type, base, unlit, normal, rare }
+// 每個 type × base 組合一筆
+
+let records  = {}; // records[type][base] = {unlit, normal, rare}
 let nickname = '';
 let filter   = 'all';
+let selType  = null;
 
-function lsKey(n){ return 'pikmin_mgr_v1__'+n; }
+// 暫存新增數量（add panel用）
+let addCounts = {}; // addCounts[base] = {unlit, normal, rare}
 
-// ── 判斷這筆的建議 ──────────────────────────
-// 先建立圖鑑快照（不含重複，只取第一筆有飾品的）
-function buildCatalog(){
-  // catalog[type][decoId] = true 表示圖鑑已有
-  const cat = {};
-  PIKMIN_TYPES.forEach(p=>{ cat[p.id]={}; });
-  // 按加入順序，第一筆有飾品的算進圖鑑
-  entries.forEach(e=>{
-    if(e.decoId !== 'none'){
-      if(!cat[e.type][e.decoId]) cat[e.type][e.decoId] = e.id; // 記錄第一筆的id
-    }
-  });
-  return cat;
+function lsKey(n){ return 'pikmin_mgr_v3__' + n; }
+
+function getRecord(type, base){
+  if(!records[type]) records[type] = {};
+  if(!records[type][base]) records[type][base] = {unlit:0, normal:0, rare:0};
+  return records[type][base];
 }
 
-function getAdvice(entry, catalog){
-  const {type, decoId} = entry;
-  if(decoId === 'none') return {label:'優先放生', cls:'badge-priority', canRelease:true, priority:1};
-  const first = catalog[type][decoId];
-  if(first === entry.id){
-    // 這是圖鑑第一筆，留著
-    const deco = DECO_MAP[decoId];
-    return {label: deco&&deco.isRare ? '留（稀有）✨' : '留著 ✅', cls:'badge-keep', canRelease:false, priority:3};
-  } else {
-    // 重複
-    return {label:'重複可放生', cls:'badge-dup', canRelease:true, priority:2};
+function save(){
+  try{ localStorage.setItem(lsKey(nickname), JSON.stringify(records)); }catch(e){}
+}
+
+// ── 判斷建議 ──
+// 回傳 { unlitRelease, unlitGrow, normalRelease, rareRelease }
+function getAdviceForRecord(type, base){
+  const r = getRecord(type, base);
+  const fam = FAM_MAP[base];
+
+  // 未長出：圖鑑有normal → 放生，沒有 → 培育
+  const unlitRelease = r.normal > 0 ? r.unlit : 0;
+  const unlitGrow    = r.normal > 0 ? 0 : r.unlit;
+
+  // 普通：第1隻留，多的看稀有
+  let normalKeep = Math.min(r.normal, 1);
+  let normalForRare = 0;
+  if(fam.hasRare && r.rare === 0 && r.normal >= 2){
+    // 還沒稀有，可以留1隻備升
+    normalForRare = r.normal - 1;
+    normalKeep = 1;
+  } else if(fam.hasRare && r.rare === 0 && r.normal === 1){
+    normalKeep = 1; // 唯一1隻，留著
   }
+  const normalRelease = Math.max(0, r.normal - normalKeep - normalForRare);
+
+  // 稀有：第1隻留，多的放生
+  const rareRelease = Math.max(0, r.rare - 1);
+
+  return { unlitRelease, unlitGrow, normalForRare, normalRelease, rareRelease,
+           r, fam };
 }
 
 // ── 登入 ──
 function doLogin(){
   const val = document.getElementById('nick-input').value.trim();
-  if(!val){showToast('請輸入暱稱！');return;}
+  if(!val){ showToast('請輸入暱稱！'); return; }
   nickname = val;
   try{
     const raw = localStorage.getItem(lsKey(nickname));
-    if(raw){
-      const saved = JSON.parse(raw);
-      entries = saved.entries || [];
-      nextId  = saved.nextId  || (entries.length+1);
-    } else { entries=[]; nextId=1; }
-  }catch(e){ entries=[]; nextId=1; }
-  document.getElementById('login-screen').style.display='none';
-  document.getElementById('main-header').style.display='flex';
-  document.getElementById('main-screen').style.display='block';
+    records = raw ? JSON.parse(raw) : {};
+  }catch(e){ records = {}; }
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('main-header').style.display  = 'flex';
+  document.getElementById('main-screen').style.display  = 'block';
+  initTypeButtons();
   renderAll();
-  showToast('歡迎，'+nickname+'！🌱');
+  showToast('歡迎，' + nickname + '！🌱');
 }
 function doLogout(){
-  nickname=''; entries=[]; nextId=1; filter='all';
+  nickname=''; records={}; selType=null; filter='all'; addCounts={};
   document.getElementById('login-screen').style.display='flex';
   document.getElementById('main-header').style.display='none';
   document.getElementById('main-screen').style.display='none';
   document.getElementById('nick-input').value='';
 }
-document.getElementById('nick-input').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+document.getElementById('nick-input').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
 
-// ── 新增 ──
-function addPikmin(){
-  const type  = document.getElementById('in-type').value;
-  const decoId= document.getElementById('in-deco').value;
-  const qty   = Math.max(1, parseInt(document.getElementById('in-qty').value)||1);
+// ── 新增面板 ──
+function initTypeButtons(){
+  document.getElementById('type-btns').innerHTML = PIKMIN_TYPES.map(p =>
+    `<div class="type-btn" id="tbtn-${p.id}" onclick="selectType('${p.id}')">
+      <span class="t-emoji">${p.emoji}</span>
+      <span class="t-name">${p.name}</span>
+    </div>`).join('');
+}
 
-  // 分開新增（每隻一筆，這樣才能個別判斷）
-  for(let i=0;i<qty;i++){
-    entries.push({id: nextId++, type, decoId});
-  }
+function selectType(typeId){
+  selType = typeId;
+  addCounts = {};
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tbtn-' + typeId).classList.add('active');
+  renderDecoSection(typeId);
+  document.getElementById('deco-section').classList.add('show');
+}
+
+function renderDecoSection(typeId){
+  const wrap = document.getElementById('deco-section');
+  wrap.innerHTML = DECO_FAMILIES.map(fam => {
+    const cur = getRecord(typeId, fam.base);
+    if(!addCounts[fam.base]) addCounts[fam.base] = {unlit:0, normal:0, rare:0};
+    const ac = addCounts[fam.base];
+    return `<div class="family-card">
+      <div class="family-head">
+        <span>${fam.name}</span>
+        <span class="fam-loc">${fam.loc}</span>
+        ${fam.hasRare ? '<span class="can-rare-tag">✨可升稀有</span>' : ''}
+        <span style="font-size:11px;color:#bbb;margin-left:auto">
+          現有：未長出${cur.unlit} 普通${cur.normal} ${fam.hasRare?'稀有'+cur.rare:''}
+        </span>
+      </div>
+      <div class="family-body">
+        <div class="counter-row">
+          <span class="counter-label cl-unlit">🌱 未長出</span>
+          <div class="counter-btns">
+            <button class="c-btn" onclick="changeCount('${fam.base}','unlit',-1)">−</button>
+            <span class="c-num" id="ac-${fam.base}-unlit">0</span>
+            <button class="c-btn" onclick="changeCount('${fam.base}','unlit',1)">+</button>
+          </div>
+        </div>
+        <div class="counter-row">
+          <span class="counter-label cl-normal">✅ 有飾品</span>
+          <div class="counter-btns">
+            <button class="c-btn" onclick="changeCount('${fam.base}','normal',-1)">−</button>
+            <span class="c-num" id="ac-${fam.base}-normal">0</span>
+            <button class="c-btn" onclick="changeCount('${fam.base}','normal',1)">+</button>
+          </div>
+        </div>
+        ${fam.hasRare ? `<div class="counter-row">
+          <span class="counter-label cl-rare">✨ 稀有版</span>
+          <div class="counter-btns">
+            <button class="c-btn" onclick="changeCount('${fam.base}','rare',-1)">−</button>
+            <span class="c-num" id="ac-${fam.base}-rare">0</span>
+            <button class="c-btn" onclick="changeCount('${fam.base}','rare',1)">+</button>
+          </div>
+        </div>` : ''}
+        <button class="add-row-btn" onclick="confirmAdd('${fam.base}')">確認新增</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function changeCount(base, state, delta){
+  if(!addCounts[base]) addCounts[base]={unlit:0,normal:0,rare:0};
+  addCounts[base][state] = Math.max(0, (addCounts[base][state]||0) + delta);
+  const el = document.getElementById('ac-'+base+'-'+state);
+  if(el) el.textContent = addCounts[base][state];
+}
+
+function confirmAdd(base){
+  if(!selType) return;
+  const ac = addCounts[base] || {unlit:0,normal:0,rare:0};
+  if(ac.unlit + ac.normal + ac.rare === 0){ showToast('請先設定數量！'); return; }
+  const r = getRecord(selType, base);
+  r.unlit  += ac.unlit;
+  r.normal += ac.normal;
+  r.rare   += ac.rare;
+  addCounts[base] = {unlit:0, normal:0, rare:0};
+  // 更新顯示
+  ['unlit','normal','rare'].forEach(s=>{
+    const el=document.getElementById('ac-'+base+'-'+s);
+    if(el) el.textContent='0';
+  });
+  // 更新現有數量顯示
+  const fam = FAM_MAP[base];
+  const pt  = PIKMIN_TYPES.find(p=>p.id===selType);
+  // 重新渲染現有數量那行
+  renderDecoSection(selType);
   save();
   renderAll();
-  const typeName = PIKMIN_TYPES.find(p=>p.id===type)?.name;
-  const decoName = DECO_MAP[decoId]?.name;
-  showToast(`新增了 ${qty} 隻 ${typeName} · ${decoName}`);
+  showToast(`✓ 新增 ${pt.emoji}${pt.name} · ${fam.name}`);
 }
 
-function deleteEntry(id){
-  entries = entries.filter(e=>e.id!==id);
-  save();
-  renderAll();
-}
-
-function save(){
-  try{ localStorage.setItem(lsKey(nickname), JSON.stringify({entries, nextId})); }catch(e){}
-}
-
-function setFilter(f,el){
-  filter=f;
-  document.querySelectorAll('.ftag').forEach(t=>t.classList.remove('active'));
+function setFilter(f, el){
+  filter = f;
+  document.querySelectorAll('.ftag').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
   renderList();
 }
 
 // ── 渲染 ──
-function renderAll(){ renderStats(); renderList(); renderRelease(); }
+function renderAll(){ renderStats(); renderList(); renderUpgradeHints(); renderRelease(); }
 
 function renderStats(){
-  const total = entries.length;
-  const over  = Math.max(0, total-300);
-  const cat   = buildCatalog();
-  const release = entries.filter(e=>{
-    const a=getAdvice(e,cat); return a.canRelease;
-  }).length;
-  document.getElementById('stats-bar').innerHTML=`
+  let total=0, canRelease=0, growing=0;
+  PIKMIN_TYPES.forEach(pt => {
+    DECO_FAMILIES.forEach(fam => {
+      const r = getRecord(pt.id, fam.base);
+      total += r.unlit + r.normal + r.rare;
+      const adv = getAdviceForRecord(pt.id, fam.base);
+      canRelease += adv.unlitRelease + adv.normalRelease + adv.rareRelease;
+      growing    += adv.unlitGrow;
+    });
+  });
+  const over = Math.max(0, total - 300);
+  document.getElementById('stats-bar').innerHTML = `
     <div class="s-pill">總數 <b>${total}</b>/300</div>
     <div class="s-pill ${over>0?'warn':'ok'}">需放生 <b>${over}</b></div>
-    <div class="s-pill">可放生 <b>${release}</b> 隻</div>
-    <div class="s-pill" style="background:#fff8f8;border-color:#e88;color:#a33">無飾品（優先）<b> ${entries.filter(e=>e.decoId==='none').length}</b></div>`;
+    <div class="s-pill">可放生 <b>${canRelease}</b></div>
+    <div class="s-pill" style="background:#e8f4ff;border-color:#90caf9;color:#1565c0">培育中 <b>${growing}</b></div>`;
 }
 
 function renderList(){
   const root = document.getElementById('pik-list');
-  const cat  = buildCatalog();
+  let html = '';
 
-  let filtered = entries.map(e=>({...e, advice:getAdvice(e,cat)}));
-  if(filter==='keep')     filtered=filtered.filter(e=>!e.advice.canRelease);
-  if(filter==='release')  filtered=filtered.filter(e=>e.advice.canRelease);
-  if(filter==='priority') filtered=filtered.filter(e=>e.decoId==='none');
+  PIKMIN_TYPES.forEach(pt => {
+    let famRows = [];
 
-  if(!filtered.length){
-    root.innerHTML='<div class="empty-state">沒有符合的皮克敏<br><span style="font-size:20px;margin-top:8px;display:block">🌿</span></div>';
-    return;
-  }
+    DECO_FAMILIES.forEach(fam => {
+      const r = getRecord(pt.id, fam.base);
+      if(r.unlit + r.normal + r.rare === 0) return;
+      const adv = getAdviceForRecord(pt.id, fam.base);
 
-  // 按種類分組
-  const groups = {};
-  PIKMIN_TYPES.forEach(p=>{ groups[p.id]=[]; });
-  filtered.forEach(e=>groups[e.type].push(e));
+      // 篩選
+      if(filter === 'release' && adv.unlitRelease + adv.normalRelease + adv.rareRelease === 0) return;
+      if(filter === 'grow'    && adv.unlitGrow === 0) return;
+      if(filter === 'keep'    && adv.unlitGrow === 0 && adv.normalForRare === 0 && r.normal - adv.normalRelease - adv.normalForRare === 0 && r.rare === 0) return;
 
-  let html='';
-  PIKMIN_TYPES.forEach(ptype=>{
-    const list = groups[ptype.id];
-    if(!list.length) return;
-    html+=`<div class="pik-group">
-      <div class="pik-group-head">
-        <span>${ptype.emoji} ${ptype.name}皮克敏</span>
-        <span>${list.length} 隻</span>
-      </div>`;
-    list.forEach(e=>{
-      const deco = DECO_MAP[e.decoId];
-      html+=`<div class="pik-card">
-        <span class="pik-emoji">${ptype.emoji}</span>
-        <div class="pik-info">
-          <div class="pik-name">${ptype.name}皮克敏</div>
-          <div class="pik-deco">${deco?.name||'未知飾品'}</div>
-        </div>
-        <span class="pik-badge ${e.advice.cls}">${e.advice.label}</span>
-        <button class="del-btn" onclick="deleteEntry(${e.id})" title="刪除">×</button>
-      </div>`;
+      // 各狀態 chip
+      let chips = '';
+      if(r.unlit > 0){
+        const rel = adv.unlitRelease > 0;
+        chips += `<span class="state-chip sc-unlit">🌱 未長出 ×${r.unlit}${rel?' <b style="color:#c0392b">→放生'+adv.unlitRelease+'</b>':' 培育中'}</span>`;
+      }
+      if(r.normal > 0){
+        const relN = adv.normalRelease;
+        const forR = adv.normalForRare;
+        let label = `✅ 有飾品 ×${r.normal}`;
+        if(relN > 0) label += ` <b style="color:#c0392b">→放生${relN}</b>`;
+        if(forR > 0) label += ` <span style="color:#9b87f5">→備升稀有${forR}</span>`;
+        chips += `<span class="state-chip sc-normal">${label}</span>`;
+      }
+      if(r.rare > 0){
+        const relR = adv.rareRelease;
+        chips += `<span class="state-chip sc-rare">✨ 稀有 ×${r.rare}${relR > 0 ? ` <b style="color:#c0392b">→放生${relR}</b>` : ''}</span>`;
+      }
+
+      const totalPik = r.unlit + r.normal + r.rare;
+      famRows.push(`
+        <div class="fam-summary-card">
+          <div class="fsc-head">
+            <span class="fsc-name">${fam.name}</span>
+            <span class="fsc-total">${totalPik} 隻</span>
+            <button class="fsc-del" onclick="deleteRecord('${pt.id}','${fam.base}')">✕ 清除</button>
+          </div>
+          <div class="fsc-rows">${chips}</div>
+        </div>`);
     });
-    html+='</div>';
+
+    if(!famRows.length) return;
+    html += `<div class="pik-group">
+      <div class="pik-group-head"><span>${pt.emoji} ${pt.name}皮克敏</span><span>${famRows.length} 種飾品</span></div>
+      ${famRows.join('')}
+    </div>`;
   });
-  root.innerHTML=html;
+
+  root.innerHTML = html || '<div class="empty-state">還沒有皮克敏，快去新增吧！🌿</div>';
+}
+
+function deleteRecord(type, base){
+  if(records[type]) delete records[type][base];
+  save();
+  renderAll();
+  if(selType) renderDecoSection(selType);
+}
+
+function renderUpgradeHints(){
+  const hints = [];
+  PIKMIN_TYPES.forEach(pt => {
+    DECO_FAMILIES.filter(f => f.hasRare).forEach(fam => {
+      const r = getRecord(pt.id, fam.base);
+      if(r.rare > 0) return; // 已有稀有不提醒
+      if(r.normal === 1){
+        hints.push({cls:'upg-yellow', msg:`💛 ${pt.emoji}${pt.name} · ${fam.name}：再多養1隻普通版，才可以升稀有唷～`});
+      } else if(r.normal >= 2){
+        hints.push({cls:'upg-green', msg:`💚 ${pt.emoji}${pt.name} · ${fam.name}：已經可以升稀有了！要升嗎？🌟`});
+      }
+    });
+  });
+  const wrap = document.getElementById('upgrade-hints');
+  if(!hints.length){ wrap.innerHTML=''; return; }
+  wrap.innerHTML = hints.map(h => `<div class="upg-hint ${h.cls}">${h.msg}</div>`).join('');
 }
 
 function renderRelease(){
-  const cat = buildCatalog();
-  const releaseList = entries
-    .map(e=>({...e, advice:getAdvice(e,cat)}))
-    .filter(e=>e.advice.canRelease)
-    .sort((a,b)=>a.advice.priority-b.advice.priority);
+  let priorityItems=[], dupItems=[];
+  PIKMIN_TYPES.forEach(pt => {
+    DECO_FAMILIES.forEach(fam => {
+      const r = getRecord(pt.id, fam.base);
+      const adv = getAdviceForRecord(pt.id, fam.base);
+      const label = `${pt.emoji}${pt.name} · ${fam.name}`;
+      if(adv.unlitRelease > 0) priorityItems.push({label, count:adv.unlitRelease, tag:'優先', tagStyle:'background:#fee;color:#a33'});
+      if(adv.normalRelease > 0) dupItems.push({label, count:adv.normalRelease, tag:'重複', tagStyle:'background:#fff3cd;color:#7a4e00'});
+      if(adv.rareRelease   > 0) dupItems.push({label:label+' (稀有)', count:adv.rareRelease, tag:'重複', tagStyle:'background:#fff3cd;color:#7a4e00'});
+    });
+  });
 
   const box = document.getElementById('rel-box');
-  if(!releaseList.length){ box.style.display='none'; return; }
+  if(!priorityItems.length && !dupItems.length){ box.style.display='none'; return; }
   box.style.display='block';
 
-  const priority = releaseList.filter(e=>e.decoId==='none');
-  const dup      = releaseList.filter(e=>e.decoId!=='none');
-
   let html='';
-  if(priority.length){
-    html+=`<div style="margin-bottom:8px">
-      <div style="font-size:12px;color:#888;margin-bottom:4px">🔴 優先放生（無飾品，不影響圖鑑）</div>
-      ${priority.map(e=>{
-        const pt=PIKMIN_TYPES.find(p=>p.id===e.type);
-        return `<div class="rel-item"><b>${pt.emoji} ${pt.name} · 無飾品</b><span class="rel-tag" style="background:#fee;color:#a33">優先</span></div>`;
-      }).join('')}
-    </div>`;
+  if(priorityItems.length){
+    html+=`<div class="rel-sec-title" style="margin-top:0">🔴 優先放生（未長出，圖鑑已有）</div>
+    ${priorityItems.map(i=>`<div class="rel-item"><b>${i.label}</b> ×${i.count}<span class="rel-tag" style="${i.tagStyle}">${i.tag}</span></div>`).join('')}`;
   }
-  if(dup.length){
-    html+=`<div>
-      <div style="font-size:12px;color:#888;margin-bottom:4px">🟡 重複可放生（圖鑑已有）</div>
-      ${dup.map(e=>{
-        const pt=PIKMIN_TYPES.find(p=>p.id===e.type);
-        const deco=DECO_MAP[e.decoId];
-        return `<div class="rel-item"><b>${pt.emoji} ${pt.name} · ${deco?.name}</b><span class="rel-tag" style="background:#fff3cd;color:#7a4e00">重複</span></div>`;
-      }).join('')}
-    </div>`;
+  if(dupItems.length){
+    html+=`<div class="rel-sec-title">🟡 重複可放生</div>
+    ${dupItems.map(i=>`<div class="rel-item"><b>${i.label}</b> ×${i.count}<span class="rel-tag" style="${i.tagStyle}">${i.tag}</span></div>`).join('')}`;
   }
-  document.getElementById('rel-list').innerHTML=html;
-}
-
-// ── 初始化飾品下拉選單 ──
-function initDecoSelect(){
-  const sel = document.getElementById('in-deco');
-  sel.innerHTML = DECOS.map(d=>
-    `<option value="${d.id}">${d.name}</option>`
-  ).join('');
+  document.getElementById('rel-list').innerHTML = html;
 }
 
 let toastTimer;
 function showToast(msg){
   const el=document.getElementById('toast');
-  el.textContent=msg;
-  el.classList.add('show');
+  el.textContent=msg;el.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer=setTimeout(()=>el.classList.remove('show'),2500);
 }
-
-initDecoSelect();
 </script>
 </body>
 </html>
